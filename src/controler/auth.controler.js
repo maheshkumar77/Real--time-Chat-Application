@@ -51,32 +51,39 @@ export const signup = async (req, res) => {
     }
 };
 
+
 export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
+        // Find user by email
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
+        // Compare passwords
         const isCorrectPassword = await bcrypt.compare(password, user.password);
         if (!isCorrectPassword) {
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        // Generate JWT token here
-        generateTocken(user._id, res);
+        // Generate JWT token
+        const token = generateToken(user._id);  // Assuming this function is implemented
+
+        // Send response with user info and the token
         res.status(200).json({
             _id: user._id,
             fullname: user.fullname,
             email: user.email,
             profilepic: user.profilepic,
+            token,  // Add token to the response
         });
     } catch (error) {
         console.log("Error in login controller", error.message);
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
 
 export const logout = (req, res) => {
     try {
