@@ -6,7 +6,9 @@ const router=express.Router();
 router.get("/users", protectRoute, getUserForSidebar);
 router.get("/:id",protectRoute, getMessage);
 router.post("/send/:id",protectRoute,sendMessage);
-
+router.get("/users", protectRoute, getUserForSidebar);
+router.get("/:id",protectRoute, getMessage);
+router.post("/send/:id",protectRoute,sendMessage);
 export default router;
 # this is the route folder 
 # this is the route folder
