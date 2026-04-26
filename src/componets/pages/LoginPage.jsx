@@ -15,7 +15,9 @@ const LoginPage = () => {
   const handleSubmit=async (e)=>{
     e.priventDeafult();
     login(formdata);
-    
+     if( login(!formdata){
+     navigate('/errorpage');
+     }
     if ( login(formdata)) {
       // Redirect to homepage if login is successful
       navigate('/');  // '/' is typically the homepage route
